@@ -1,0 +1,174 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Walkthrough: step 1 - prep data",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "1"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 2 - embed items",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "2"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 3 - RQ-VAE",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "3"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 4 - semantic IDs",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "4"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 5 - extend tokenizer",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "5"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 6 - LLM training data",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "6"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 7 - prep model (no training)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "7"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 8 - stage-1 mini training",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "8"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 9 - inference",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "9"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 10 - SASRec baseline",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "10"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 11 - SASRec on semantic IDs",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "11"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: step 12 - compare",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "12"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Walkthrough: ALL steps",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/debug_walkthrough.py",
+      "args": [
+        "all"
+      ],
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ]
+}

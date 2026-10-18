@@ -154,6 +154,9 @@ def encode_semantic_id(semantic_id: str, num_levels: int = 4, codebook_size: int
 
     New format: <|sid_start|><|sid_52|><|sid_273|><|sid_714|><|sid_769|><|sid_end|>
     where each sid_X already contains the level offset (level * 256 + value)
+
+    Returned ids are sid_X + 1, so they live in 1..vocab_size and 0 stays free for padding
+    (otherwise <|sid_0|> would be indistinguishable from padding_idx=0).
     """
     # Extract all token IDs from the semantic ID string
     pattern = r"<\|sid_(\d+)\|>"
@@ -162,8 +165,8 @@ def encode_semantic_id(semantic_id: str, num_levels: int = 4, codebook_size: int
     if not matches:
         raise ValueError(f"Invalid semantic ID format: {semantic_id}")
 
-    # Convert to integers
-    tokens = [int(match) for match in matches[:num_levels]]
+    # Convert to integers (+1 to reserve 0 for padding)
+    tokens = [int(match) + 1 for match in matches[:num_levels]]
 
     # Pad with zeros if needed (shouldn't happen with proper data)
     while len(tokens) < num_levels:
@@ -318,12 +321,12 @@ class SemanticSASRec(nn.Module):
                     module.weight[module.padding_idx].fill_(0)
 
     def level_to_token_id(self, level_value: int, level: int) -> int:
-        """Convert a level value and level index to token ID."""
-        return level * self.codebook_size + level_value
+        """Convert a level value and level index to token ID (+1: id 0 is reserved for padding)."""
+        return level * self.codebook_size + level_value + 1
 
     def token_id_to_level_value(self, token_id: torch.Tensor) -> torch.Tensor:
-        """Extract the level value from a token ID (removes level offset)."""
-        return token_id % self.codebook_size
+        """Extract the level value from a token ID (removes the +1 padding shift and the level offset)."""
+        return (token_id - 1) % self.codebook_size
 
     def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
         """
@@ -658,13 +661,14 @@ class SemanticTrainingDataset(Dataset):
         self.num_levels = base_dataset.num_levels
         self.max_token_length = base_dataset.max_token_length
 
-        # Pre-compute valid training sequences
+        # Pre-compute valid training sequences. The last two items of every user are held out
+        # (evaluate() uses item -2 as the val target and item -1 as the test target), so a training
+        # target may be at most item -3: end_idx in [2, seq_length - 3].
         self.training_samples = []
         for user in base_dataset.users:
             seq_length = base_dataset.user_seq_lengths[user]
-            if seq_length > 2:  # Need at least 3 items for training
-                # Store multiple training samples from each sequence
-                for end_idx in range(2, seq_length):
+            if seq_length > 4:  # Need >= 2 history items + 1 target + 2 held-out items
+                for end_idx in range(2, seq_length - 2):
                     self.training_samples.append((user, end_idx))
 
         logger.info(f"Created {len(self.training_samples):,} training samples")
