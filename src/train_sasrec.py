@@ -438,17 +438,11 @@ class SequentialSampler:
                 # Input sequence: all items in the sequence
                 seq_tensors[idx, -seq_len:] = torch.tensor(seq[:seq_len])
 
-                # Positive items: for each position i, predict item at position i+1
-                # For the last item, we predict the next item (from the held-out part)
-                for pos in range(seq_len):
-                    if pos < seq_len - 1:
-                        pos_tensors[idx, -seq_len + pos] = seq[pos + 1]
-                    else:
-                        # For the last position, use the item from the full sequence
-                        full_seq = self.dataset.user_seq[user]
-                        next_idx = len(seq)  # This is the position in the full sequence
-                        if next_idx < len(full_seq):
-                            pos_tensors[idx, -1] = full_seq[next_idx]
+                # Positive items: for each position i, predict item at position i+1.
+                # The last position has no label (0 = masked in the loss): its next item is the user's
+                # validation item, which must stay held out.
+                for pos in range(seq_len - 1):
+                    pos_tensors[idx, -seq_len + pos] = seq[pos + 1]
 
                 # Sample negative items for each position
                 seen_set = set(self.dataset.user_seq[user])  # Use full sequence for negative sampling
